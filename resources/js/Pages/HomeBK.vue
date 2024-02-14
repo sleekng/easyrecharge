@@ -5,7 +5,7 @@
         
             <template #title>
                 <div>
-                        WOw! it works
+                       Working wow!
                 </div>
             </template>
             <template #content>
@@ -17,7 +17,7 @@
 
 
         <!-- Primary button -->
-        <div class=" py-10">
+        <div class=" py-10" @click="openModal">
             <primary-button class="'text-red-500'">Get Started</primary-button>
         </div>
 
@@ -37,11 +37,9 @@
 
         <!-- Input -->
         <text-input v-model="name" >
-
             <template #inputLable >
                 Name
             </template>
-            
         </text-input>
 
 
@@ -83,6 +81,9 @@ import TextInput from '@/Components/TextInput.vue';
         methods:{
             closeModal() {
                 this.showModal = false;
+            },
+            openModal() {
+                this.showModal = true;
             },
 
             popName(){

@@ -28,6 +28,13 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+
         @inertia
     </body>
+
+    <script src="{{ asset('js/coretyping.js') }}"> </script>
+    <script>
+
+
+    </script>
 </html>
