@@ -155,7 +155,7 @@ export default {
     data() {
         return {
             inputType: "password",
-            show: true,
+            show: false,
             maxWidth: "xl",
             closeable: true,
         };
