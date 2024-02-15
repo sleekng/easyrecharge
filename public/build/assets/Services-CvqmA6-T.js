@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o,c as r}from"./app-D2imZtBY.js";const t={};function c(s,n,a,p,_,f){return o(),r("div",null," s ")}const m=e(t,[["render",c]]);export{m as default};
