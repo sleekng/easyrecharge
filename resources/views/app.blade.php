@@ -22,19 +22,22 @@
         <link rel="stylesheet" href="{{ asset('fontawesome/css/sharp-solid.css') }}">
         <link rel="stylesheet" href="{{ asset('fontawesome/css/sharp-light.css') }}">
 
+        {{-- AOS --}}
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
         <!-- Scripts -->
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased xl:overflow-hidden">
 
         @inertia
     </body>
 
     <script src="{{ asset('js/coretyping.js') }}"> </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-
-
+    AOS.init()
     </script>
 </html>

@@ -11,7 +11,7 @@
             </span>
           </a>
         </div>
-      <div class=" space-x-8 text-center">
+      <div class=" space-x-8 text-center flex items-center space-y-2">
         <Link :href="route('home')" class="hover:border-b py-1 hover:border-primarycolor transition-all  ease-in-out">
           Blog
         </Link>

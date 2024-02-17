@@ -1,3 +1,39 @@
 *{
     box-sizing: border-box;
 }
+
+
+
+#overlay-login {
+    content: 'working';
+    position:  absolute; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  
+    cursor: pointer; /* Add a pointer on hover */
+  }
+
+
+
+  #login-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+  }
+
+  .primary-bg{
+     background: linear-gradient(to right,#bed334,#d2e17b) !important;
+  }
+  .secondary-bg:hover{
+     background: linear-gradient(to left,#bed334,#d2e17b) !important;
+     transition: 0.3s linear;
+  }
+
+

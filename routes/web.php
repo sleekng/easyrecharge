@@ -25,6 +25,13 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/sidebar', function () {
+    return Inertia::render('Sidebard');
+})->name('airtime');
+Route::get('/sidebar', function () {
+    return Inertia::render('Sidebard');
+})->name('airtime');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
