@@ -1,103 +1,165 @@
-<script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+<template>
+    <GuestLayout>
+        <div class="flex py-10 justify-center items-center w-full">
+            <div class="mt-3 w-full   sm:text-start">
+                <div class="text-center">
+                    <h3 class="text-lg font-bold text-gray-900">Signup</h3>
+                </div>
 
-const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-});
+                <form @submit.prevent="submit">
+                    <div class="grid grid-cols-2 gap-x-4 mt-4">
+                        <div class="mt-4 w-full">
+                            <text-input v-model="form.first_name" class="w-full">
+                                <template #inputLable> First name </template>
+                            </text-input>
+                            <InputError class="mt-2" :message="form.errors.first_name" />
+                        </div>
+                        <div class="mt-4 w-full">
+                            <text-input v-model="form.last_name" class="w-full">
+                                <template #inputLable> Last name </template>
+                            </text-input>
+                            <InputError class="mt-2" :message="form.errors.last_name" />
+                        </div>
 
-const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+                    </div>
+                    <div class="mt-4 w-full">
+                        <text-input v-model="form.email" class="w-full">
+                            <template #inputLable> Email address </template>
+                        </text-input>
+                        <InputError class="mt-2" :message="form.errors.email" />
+                    </div>
+                    <div class="mt-4 w-full">
+                        <text-input v-model="form.phone_number" class="w-full">
+                            <template #inputLable> Phone Number </template>
+                        </text-input>
+                        <InputError class="mt-2" :message="form.errors.phone_number" />
+                    </div>
+               
+
+                <div class="mt-4 w-full relative">
+                    <text-input
+                        v-model="form.password"
+                        :type="inputType"
+                        class="w-full"
+                    >
+                        <template #inputLable> Password </template>
+                    </text-input>
+
+                    <span
+                        v-if="inputType == 'password'"
+                        @click="showPassword('password')"
+                        class="cursor-pointer absolute right-4 top-11"
+                        ><i class="fa-sharp fa-solid fa-eye-slash"></i
+                    ></span>
+                    <span
+                        v-if="inputType == 'text'"
+                        @click="showPassword('password')"
+                        class="cursor-pointer absolute right-4 top-11"
+                        ><i class="fa-sharp fa-solid fa-eye"></i
+                    ></span>
+
+                    <InputError class="mt-2" :message="form.errors.password" />
+                </div>
+
+                <div class="mt-4 w-full relative">
+                    <text-input
+                        v-model="form.password_confirmation"
+                        :type="inputConfirmPasswordType"
+                        class="w-full"
+                    >
+                        <template #inputLable> Confirm Password </template>
+                    </text-input>
+                    <span
+                        v-if="inputConfirmPasswordType == 'password'"
+                        @click="showPassword('confirm-password')"
+                        class="cursor-pointer absolute right-4 top-11"
+                        ><i class="fa-sharp fa-solid fa-eye-slash"></i
+                    ></span>
+                    <span
+                        v-if="inputConfirmPasswordType == 'text'"
+                        @click="showPassword('confirm-password')"
+                        class="cursor-pointer absolute right-4 top-11"
+                        ><i class="fa-sharp fa-solid fa-eye"></i
+                    ></span>
+                    <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                </div>
+
+                <div class="mt-10">
+                    <primary-button
+                        :class="'bg-black flex justify-center text-white w-full text-center'"
+                        >Create your account</primary-button
+                    >
+                </div>
+            </form>
+                <div class="flex justify-center space-x-2 mt-4">
+                    <span>Already have an account? </span>
+                    <Link
+                        class="cursor-pointer text-primarycolor font-bold"
+                       :href="route('login')"
+                    >
+                        Login</Link
+                    >
+                </div>
+            </div>
+        </div>
+    </GuestLayout>
+</template>
+
+<script>
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, Link, useForm } from "@inertiajs/vue3";
+export default {
+    components: {
+        GuestLayout,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput,
+        Link,
+        Head,
+    },
+    data() {
+        return {
+            inputType: "password",
+            inputConfirmPasswordType: "password",
+            signUp: false,
+            forgetPasswordSection: false,
+            form: useForm({
+                first_name: "",
+                last_name: "",
+                phone_number: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+            }),
+        };
+    },
+
+    methods: {
+        submit() {
+            this.form.post(route("register"), {
+                onFinish: () => this.form.reset("password", "password_confirmation"),
+            });
+        },
+
+        showPassword(type) {
+            if (type == "password") {
+                this.inputType =
+                    this.inputType == "password" ? "text" : "password";
+            }
+            if (type == "confirm-password") {
+                this.inputConfirmPasswordType =
+                    this.inputConfirmPasswordType == "password"
+                        ? "text"
+                        : "password";
+            }
+        },
+    },
 };
 </script>
 
-<template>
-    <GuestLayout>
-        <Head title="Register" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>
+<style lang="scss" scoped></style>

@@ -1,17 +1,17 @@
 <template>
-
-
     <!-- Primary SideBAr -->
-    
- 
-        
-        <side-bar @closesidebar="SideBarFn" v-if="showSideBar" class="animate-fade-right animate-duration-300"></side-bar>
-
+    <side-bar
+        @closesidebar="SideBarFn"
+        v-if="showSideBar"
+        class="animate-fade-right animate-duration-300"
+    ></side-bar>
 
     <div class="bg-primarycolor overflow-hidden">
         <!-- Login/Register Modal Begin -->
-        <div  v-if="show" id="login-modal"
-            class="bg-white hidden  max-w-5xl xl:grid grid-cols-2 overflow-hidden rounded-xl z-50"
+        <div
+            v-if="show"
+            id="login-modal"
+            class="bg-white hidden max-w-5xl xl:grid grid-cols-2 overflow-hidden rounded-xl z-50"
         >
             <div
                 class="relative rounded-md p-10 overflow-hidden flex justify-center items-end"
@@ -47,9 +47,7 @@
                             <div class="text-center">
                                 <h3 class="text-lg font-bold text-gray-900">
                                     Log
-                                    <span class="text-primarycolor"
-                                        >In</span
-                                    >
+                                    <span class="text-primarycolor">In</span>
                                 </h3>
                             </div>
 
@@ -58,31 +56,31 @@
                                     <template #inputLable> Email </template>
                                 </text-input>
                             </div>
+
                             <div class="mt-4 w-full relative">
                                 <text-input
                                     v-model="password"
-                                    :type="inputType"
+                                    :type="LoginInputType"
                                     class="w-full"
                                 >
-                                    <template #inputLable>
-                                        Password
-                                    </template>
+                                    <template #inputLable> Password </template>
                                 </text-input>
                                 <span
-                                    v-if="inputType == 'password'"
-                                    @click="showPassword"
-                                    class="cursor-pointer absolute right-4 top-12"
-                                    ><i class="fa-sharp fa-solid fa-eye"></i
-                                ></span>
-                                <span
-                                    v-if="inputType == 'text'"
-                                    @click="showPassword"
-                                    class="cursor-pointer absolute right-4 top-12"
+                                    v-if="LoginInputType == 'password'"
+                                    @click="showPassword('login-password')"
+                                    class="cursor-pointer absolute right-4 top-11"
                                     ><i
                                         class="fa-sharp fa-solid fa-eye-slash"
                                     ></i
                                 ></span>
+                                <span
+                                    v-if="LoginInputType == 'text'"
+                                    @click="showPassword('login-password')"
+                                    class="cursor-pointer absolute right-4 top-11"
+                                    ><i class="fa-sharp fa-solid fa-eye"></i
+                                ></span>
                             </div>
+
                             <div class="mt-10">
                                 <primary-button
                                     :class="'bg-black flex justify-center text-white w-full text-center'"
@@ -93,14 +91,15 @@
                                 class="flex justify-center font-bold space-x-1 mt-4"
                             >
                                 <span>Forgot your</span>
-                                <span class="text-primarycolor cursor-pointer" @click="openModal('forget-pass')">
+                                <span
+                                    class="text-primarycolor cursor-pointer"
+                                    @click="openModal('forget-pass')"
+                                >
                                     password?
                                 </span>
                             </div>
-                            <div
-                                class="flex justify-center  space-x-2 mt-4"
-                            >
-                            <span>Don't have an account yet?</span>
+                            <div class="flex justify-center space-x-2 mt-4">
+                                <span>Don't have an account yet?</span>
                                 <span
                                     @click="openModal('register')"
                                     class="cursor-pointer font-bold"
@@ -135,10 +134,8 @@
                                 </h3>
                             </div>
 
-                            <form
-                                @submit.prevent="handleSubmitRegisterForm"
-                            >
-                                <div class="grid grid-cols-2 gap-4 mt-4">
+                            <form @submit.prevent="handleSubmitRegisterForm">
+                                <div class="grid grid-cols-2 gap-x-2 mt-4">
                                     <div class="mt-4 w-full">
                                         <text-input
                                             v-model="first"
@@ -159,7 +156,7 @@
                                             </template>
                                         </text-input>
                                     </div>
-                             
+
                                     <div class="mt-4 w-full">
                                         <text-input
                                             v-model="first"
@@ -189,56 +186,51 @@
                                     :type="inputType"
                                     class="w-full"
                                 >
-                                    <template #inputLable>
-                                        Password
-                                    </template>
+                                    <template #inputLable> Password </template>
                                 </text-input>
                                 <span
                                     v-if="inputType == 'password'"
-                                    @click="showPassword"
-                                    class="cursor-pointer absolute right-4 top-12"
-                                    ><i class="fa-sharp fa-solid fa-eye"></i
-                                ></span>
-                                <span
-                                    v-if="inputType == 'text'"
-                                    @click="showPassword"
-                                    class="cursor-pointer absolute right-4 top-12"
+                                    @click="showPassword('password')"
+                                    class="cursor-pointer absolute right-4 top-11"
                                     ><i
                                         class="fa-sharp fa-solid fa-eye-slash"
                                     ></i
                                 ></span>
+                                <span
+                                    v-if="inputType == 'text'"
+                                    @click="showPassword('password')"
+                                    class="cursor-pointer absolute right-4 top-11"
+                                    ><i class="fa-sharp fa-solid fa-eye"></i
+                                ></span>
                             </div>
-
 
                             <div class="mt-4 w-full relative">
                                 <text-input
                                     v-model="password"
-                                    :type="inputType"
+                                    :type="inputConfirmPasswordType"
                                     class="w-full"
                                 >
                                     <template #inputLable>
-                                       Confirm Password
+                                        Confirm Password
                                     </template>
                                 </text-input>
                                 <span
-                                    v-if="inputType == 'password'"
-                                    @click="showPassword"
-                                    class="cursor-pointer absolute right-4 top-12"
-                                    ><i class="fa-sharp fa-solid fa-eye"></i
-                                ></span>
-                                <span
-                                    v-if="inputType == 'text'"
-                                    @click="showPassword"
-                                    class="cursor-pointer absolute right-4 top-12"
+                                    v-if="
+                                        inputConfirmPasswordType == 'password'
+                                    "
+                                    @click="showPassword('confirm-password')"
+                                    class="cursor-pointer absolute right-4 top-11"
                                     ><i
                                         class="fa-sharp fa-solid fa-eye-slash"
                                     ></i
                                 ></span>
+                                <span
+                                    v-if="inputConfirmPasswordType == 'text'"
+                                    @click="showPassword('confirm-password')"
+                                    class="cursor-pointer absolute right-4 top-11"
+                                    ><i class="fa-sharp fa-solid fa-eye"></i
+                                ></span>
                             </div>
-
-
-
-
 
                             <div class="mt-10">
                                 <primary-button
@@ -261,8 +253,8 @@
                 </div>
             </div>
 
-            <!-- Sign up Section -->
-            <div v-if="forgetPasswordSection " class="relative">
+            <!-- ForgetPassword Section -->
+            <div v-if="forgetPasswordSection" class="relative">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div
                         class="mx-auto shrink-0 absolute top-4 right-4 flex items-center justify-center h-12 w-12 rounded-full bg-primarycolorLight sm:mx-0 sm:h-10 sm:w-10"
@@ -280,43 +272,49 @@
                             <div class="text-center">
                                 <h3 class="text-lg font-bold text-gray-900">
                                     Forgot your password?
-                                    
                                 </h3>
                             </div>
                             <div>
-                                Enter your email address or phone number below and we'll send you an OTP.
+                                Enter your email address or phone number below
+                                and we'll send you an OTP.
                             </div>
 
                             <div class="mt-4 w-full">
                                 <text-input v-model="email" class="w-full">
-                                    <template #inputLable> Email/Phone Number </template>
+                                    <template #inputLable>
+                                        Email/Phone Number
+                                    </template>
                                 </text-input>
                             </div>
-                            
+
                             <div class="mt-10">
                                 <primary-button
                                     :class="'bg-black flex justify-center text-white w-full text-center'"
                                     >Send OTP</primary-button
                                 >
                             </div>
-                           
+
                             <div
                                 class="flex justify-center font-bold space-x-1 mt-4"
                             >
-                                <span  @click="openModal('login')" class=" cursor-pointer">Login</span>
+                                <span
+                                    @click="openModal('login')"
+                                    class="cursor-pointer"
+                                    >Login</span
+                                >
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-      
-        <div  @click="closeModal" v-if="show"  class="hidden fixed w-screen xl:flex justify-center items-center h-screen z-40 top-0 left-0 p-12"
-            style="background-color: rgba(0, 0, 0, 0.8)"
-        >
-             
-        </div>
 
+        <div
+            @click="closeModal"
+            v-if="show"
+            class="hidden fixed w-screen xl:flex justify-center items-center h-screen z-40 top-0 left-0 p-12"
+            style="background-color: rgba(0, 0, 0, 0.8)"
+        ></div>
         <!-- Login Modal Ends -->
 
         <!-- Navigation Bar -->
@@ -333,11 +331,11 @@
         <header>
             <div class="container mx-auto px-4 py-20 md:py-0">
                 <div
-                    class="grid grid-cols-1 lg:grid-cols-12 gap-y-8  lg:gap-16 mt-10 lg:items-center h-[100vh]"
+                    class="grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-16 mt-10 lg:items-center h-[100vh]"
                 >
                     <div class="col-span-6 flex justify-center items-center">
                         <div class="flex flex-col">
-                            <h1  
+                            <h1
                                 class="text-5xl animate-fade-right animate-duration-[3000ms] leading-[60px] md:text-[82px] md:leading-[92px] font-medium"
                             >
                                 Simplify Your Bill Payments with
@@ -352,7 +350,8 @@
                                 >
                             </div>
                             <div class="mt-10">
-                                <primary-button @click="openModal('register')"
+                                <primary-button
+                                    @click="openModal('register')"
                                     class="bg-black text-white px-40 w-full animate-fade-up animate-duration-[3000ms] lg:w-auto flex justify-center"
                                     >Get Started Now</primary-button
                                 >
@@ -360,25 +359,26 @@
                         </div>
                     </div>
                     <div
-                        class="md:col-span-6 grid col-span-1 gap-y-4  animate-fade-up grid-cols-2 gap-4 md:gap-10"
+                        class="md:col-span-6 grid col-span-1 gap-y-4 animate-fade-up grid-cols-2 gap-4 md:gap-10"
                     >
-                        <Link :href="route('airtime')"
-                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer  flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md  primary-bg overflow-hidden"
+                        <Link
+                            :href="route('airtime')"
+                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md primary-bg overflow-hidden"
                         >
                             <span> Airtime </span>
                         </Link>
                         <div
-                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer  flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md  primary-bg overflow-hidden"
+                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md primary-bg overflow-hidden"
                         >
                             <span> DATA </span>
                         </div>
                         <div
-                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer  flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md  primary-bg overflow-hidden"
+                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md primary-bg overflow-hidden"
                         >
                             <span> ELECTRICTY </span>
                         </div>
                         <div
-                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer  flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md  primary-bg overflow-hidden"
+                            class="hover:shadow-lg h-[150px] transition-all p-10 cursor-pointer flex items-center uppercase justify-center font-bold text-md secondary-bg rounded-lg shadow-md primary-bg overflow-hidden"
                         >
                             <span class="text-center"> TV SUBSCRIPTION </span>
                         </div>
@@ -390,7 +390,7 @@
 
         <!-- Footer Section Begin -->
         <Footer
-            class="items-center lg:bottom-0 lg:left-0 lg:w-full lg:fixed bg-white lg:flex px-4 h-[200px] md:h-[60px]"
+            class="items-center lg:bottom-0 lg:left-0 lg:w-full lg:fixed bg-white lg:flex px-4 md:h-[60px]"
         />
         <!-- Footer Section Ends -->
     </div>
@@ -404,22 +404,38 @@ import Navbar from "@/Components/Navbar.vue";
 import Footer from "@/Components/Footer.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Link } from "@inertiajs/vue3";
-import SideBar from '@/Components/PrimarySidebar.vue';
+import { Link,useForm } from "@inertiajs/vue3";
+import SideBar from "@/Components/PrimarySidebar.vue";
 export default {
-    props:[
-        
-    ],
+    props: [],
     data() {
         return {
-            showSideBar:false,
+            showSideBar: false,
+            LoginInputType:'password',
             inputType: "password",
+            inputConfirmPasswordType: "password",
+            inputConfirmPasswordType: "password",
             show: false,
             maxWidth: "full",
             closeable: true,
             loginSection: true,
             signUp: false,
             forgetPasswordSection: false,
+
+            formLogin: useForm({
+                login: "",
+                password: "",
+                remember: false,
+            }),
+
+            formRegister: useForm({
+                first_name: "",
+                last_name: "",
+                phone_number: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+            }),
         };
     },
 
@@ -430,15 +446,30 @@ export default {
         Footer,
         TextInput,
         Link,
-        SideBar
+        SideBar,
+        useForm
     },
 
     methods: {
+
+        submitRegister() {
+            this.formRegister.post(route("register"), {
+                onFinish: () => form.reset("password", "password_confirmation"),
+            });
+        },
+
+        submitLogin() {
+            this.formLogin.post(route("login"), {
+                onFinish: () => form.reset("password"),
+            });
+        },
+
+
         closeModal() {
             this.show = false;
         },
-        SideBarFn(value){
-            this.showSideBar = value
+        SideBarFn(value) {
+            this.showSideBar = value;
             console.log(this.showSideBar);
         },
         openModal(option) {
@@ -460,14 +491,24 @@ export default {
             }
         },
 
-        showPassword() {
-            this.inputType = this.inputType == "password" ? "text" : "password";
+        showPassword(type) {
+            if (type == "login-password") {
+                this.LoginInputType =
+                    this.LoginInputType == "password" ? "text" : "password";
+            }
+            if (type == "password") {
+                this.inputType =
+                    this.inputType == "password" ? "text" : "password";
+            }
+            if (type == "confirm-password") {
+                this.inputConfirmPasswordType =
+                    this.inputConfirmPasswordType == "password"
+                        ? "text"
+                        : "password";
+            }
         },
     },
 };
 </script>
 
-<style lang="scss" scoped>
-
-
-</style>
+<style lang="scss" scoped></style>

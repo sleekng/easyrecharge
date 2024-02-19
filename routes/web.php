@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthOtpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SmsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,7 +18,9 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('/sms', [SmsController::class, 'index']);
 Route::get('/', function () {
+    return 'working';
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -42,4 +46,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::controller(AuthOtpController::class)->group(function(){
+    Route::get('/otp/register','register')->name( 'otp.register' );
+    Route::post('/otp/generate','generate')->name( 'otp.generate' );
+});
+
+
+
+
 require __DIR__.'/auth.php';
+

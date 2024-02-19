@@ -1,94 +1,98 @@
-<script setup>
+<template>
+    <GuestLayout>
+        <Head title="Register" />
+
+        <div class="flex w-full py-20 justify-center items-center">
+            <div class="mt-3 w-full  sm:mt-0 sm:ms-4 sm:text-start">
+                <div class="text-center" >
+                    <h3 class="text-lg font-bold text-gray-900">
+                        Log
+                        <span class="text-primarycolor">In</span>
+                    </h3>
+                </div>
+
+                <form @submit.prevent="submit">
+                <div class="mt-4 w-full">
+                    <text-input v-model="form.phone_number" class="w-full">
+                        <template #inputLable> Email / Phone Number </template>
+                    </text-input>
+                    <InputError class="mt-2" :message="form.errors.phone_number" />
+                </div>
+             
+                <div class="mt-10">
+                    <primary-button
+                        :class="'bg-black flex justify-center text-white w-full text-center'"
+                        >Login</primary-button
+                    >
+                </div>
+              </form>
+          
+                <div class="flex justify-center font-bold space-x-1 mt-4">
+                    <span>Forgot your</span>
+                    <Link
+                        class="text-primarycolor cursor-pointer"
+                        :href="route('password.request')"
+                    >
+                        password?
+                    </Link>
+                </div>
+                <div class="flex justify-center space-x-2 mt-4">
+                    <span>Don't have an account yet?</span>
+                    <Link
+                        :href="route('register')"
+                        class="cursor-pointer font-bold"
+                    >
+                        Sign up</Link
+                    >
+                </div>
+            </div>
+        </div>
+    </GuestLayout>
+</template>
+
+<script>
+import GuestLayout from "@/Layouts/GuestLayout.vue";
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-
-defineProps({
-    canResetPassword: {
-        type: Boolean,
+export default {
+    components: {
+        GuestLayout,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput,
+        Link,
+        Head,
+        Checkbox,
+        useForm
     },
-    status: {
-        type: String,
+    data() {
+        return {
+            inputType: "password",
+            signUp: false,
+            form: useForm({
+                phone_number: "",
+            }),
+        };
     },
-});
 
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
+    methods: {
+        submit() {
+            this.form.post(route("otp.generate"), {
+                onFinish: () => this.form.reset("password"),
+            });
+        },
 
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('password'),
-    });
+        showPassword() {
+           
+            this.inputType = this.inputType == "password" ? "text" : "password";
+        },
+    },
 };
 </script>
 
-<template>
-    <GuestLayout>
-        <Head title="Log in" />
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>
+<style lang="scss" scoped></style>
