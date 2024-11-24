@@ -7,11 +7,11 @@
             <application-logo></application-logo>
         </Link>
     </div>
-    <div class=" h-[100vh] flex justify-center items-center   ">
+    <div :class="route().current('login') == true ? 'h-[100vh]': 'mt-10' " class="flex justify-center items-center   ">
 
-        <div  :class="route().current('password.request') ==true ? 'bg-white w-full p-4 relative  grid-cols-1 md:max-w-xl xl:grid gap-4   rounded-xl ':'bg-white w-full p-4  grid-cols-1 md:max-w-5xl xl:grid gap-4 md:grid-cols-2  rounded-xl'"
+        <div  :class="route().current('password.request') == true || route().current('verification.code') == true ? 'bg-white w-full p-4 relative  grid-cols-1 md:max-w-xl xl:grid gap-4   rounded-xl ':'bg-white w-full p-4  grid-cols-1 md:max-w-5xl xl:grid gap-4 md:grid-cols-2  rounded-xl'"
         >
-            <div v-if="!route().current('password.request')"
+            <div v-if="!route().current('password.request') && !route().current('verification.code')"
                 class="relative hidden rounded-md md:p-10 overflow-hidden md:flex justify-center items-end"
                 style="
                     background-image: url('storage/img/login-bg.jpg');

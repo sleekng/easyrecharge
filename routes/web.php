@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthOtpController;
+use App\Http\Controllers\Auth\VTU\AirtimeTopUpController;
+use App\Http\Controllers\Auth\VTU\CableTVController;
+use App\Http\Controllers\Auth\VTU\DataTopUpController;
+use App\Http\Controllers\Auth\VTU\ElectricityController;
+use App\Http\Controllers\Auth\Wallet\AddFundsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SmsController;
 use Illuminate\Foundation\Application;
@@ -20,7 +25,6 @@ use Inertia\Inertia;
 
 Route::get('/sms', [SmsController::class, 'index']);
 Route::get('/', function () {
-    return 'working';
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -32,13 +36,35 @@ Route::get('/', function () {
 Route::get('/sidebar', function () {
     return Inertia::render('Sidebard');
 })->name('airtime');
+
+
 Route::get('/sidebar', function () {
     return Inertia::render('Sidebard');
 })->name('airtime');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/overview', function () {
+    return Inertia::render('Dashboard/Overview');
+})->middleware(['auth', 'verified'])->name('overview');
+
+
+// VTU pages
+Route::get('vtu/airtime-topup', [AirtimeTopUpController::class,'index'])->name('vtu.airtime-topup');
+Route::get('vtu/data-topup', [DataTopUpController::class,'index'])->name('vtu.data-topup');
+Route::get('vtu/cable-tv',  [CableTVController::class,'index'])->name('vtu.cable-tv');
+Route::get('vtu/electricity', [ElectricityController::class,'index'])->name('vtu.electricity');
+
+
+
+
+// Wallet pages
+Route::get('wallet/balance', 'Wallet\BalanceController@index')->name('wallet.balance');
+Route::get('wallet/transactions', 'Wallet\TransactionsController@index')->name('wallet.transactions');
+Route::get('wallet/add-funds', [AddFundsController::class,'index'])->name('wallet.add-funds');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -47,13 +73,14 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::controller(AuthOtpController::class)->group(function(){
-    Route::get('/otp/register','register')->name( 'otp.register' );
-    Route::post('/otp/generate','generate')->name( 'otp.generate' );
+Route::controller(AuthOtpController::class)->group(function () {
+    Route::get('/otp/register', 'register')->name('otp.register');
+    Route::post('/otp/generate', 'generate')->name('otp.generate');
+    /*   Route::get('/otp/verification/{user_id}','verification')->name( 'otp.verification' ); */
 });
 
 
 
 
-require __DIR__.'/auth.php';
 
+require __DIR__ . '/auth.php';

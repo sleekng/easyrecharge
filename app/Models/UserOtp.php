@@ -19,7 +19,8 @@ class UserOtp extends Model
     ];
 
 
-    public function sendSMS($receiverNumber){
+/*     public function sendSMS($receiverNumber){
+        
         
         $message = 'Login OTP is '. $this->otp; 
         
@@ -43,5 +44,5 @@ class UserOtp extends Model
         } catch (\Exception $e) {
             info("Error:".$e->getMessage());
         }
-    }
+    } */
 }

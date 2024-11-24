@@ -25,6 +25,11 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function routeNotificationForVonage($notification)
+    {
+        return $this->phone_number;
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

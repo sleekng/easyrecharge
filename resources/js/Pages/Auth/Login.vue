@@ -18,6 +18,30 @@
                     </text-input>
                     <InputError class="mt-2" :message="form.errors.phone_number" />
                 </div>
+                <div class="mt-4 w-full relative">
+                    <text-input
+                        v-model="form.password"
+                        :type="inputType"
+                        class="w-full"
+                    >
+                        <template #inputLable> Password </template>
+                    </text-input>
+
+                    <span
+                        v-if="inputType == 'password'"
+                        @click="showPassword('password')"
+                        class="cursor-pointer absolute right-4 top-11"
+                        ><i class="fa-sharp fa-solid fa-eye-slash"></i
+                    ></span>
+                    <span
+                        v-if="inputType == 'text'"
+                        @click="showPassword('password')"
+                        class="cursor-pointer absolute right-4 top-11"
+                        ><i class="fa-sharp fa-solid fa-eye"></i
+                    ></span>
+
+                    <InputError class="mt-2" :message="form.errors.password" />
+                </div>
              
                 <div class="mt-10">
                     <primary-button

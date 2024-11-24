@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
+    
+    Route::get('user-verification/{user_id}', [RegisteredUserController::class, 'verification'])->name( 'verification.code' );
+    Route::post('vcode-login', [RegisteredUserController::class, 'LoginWithVcode'])->name( 'vcode.login' );
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 

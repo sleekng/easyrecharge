@@ -336,7 +336,7 @@
                     <div class="col-span-6 flex justify-center items-center">
                         <div class="flex flex-col">
                             <h1
-                                class="text-5xl animate-fade-right animate-duration-[3000ms] leading-[60px] md:text-[82px] md:leading-[92px] font-medium"
+                                class="text-5xl  animate-fade-right animate-duration-[3000ms] leading-[60px] md:text-[82px] md:leading-[92px] font-medium"
                             >
                                 Simplify Your Bill Payments with
                                 <span class="text-white font-extralight"
@@ -352,14 +352,14 @@
                             <div class="mt-10">
                                 <primary-button
                                     @click="openModal('register')"
-                                    class="bg-black text-white px-40 w-full animate-fade-up animate-duration-[3000ms] lg:w-auto flex justify-center"
+                                    class="bg-black text-white  px-40 w-full animate-fade-up animate-duration-[3000ms] lg:w-auto flex justify-center"
                                     >Get Started Now</primary-button
                                 >
                             </div>
                         </div>
                     </div>
                     <div
-                        class="md:col-span-6 grid col-span-1 gap-y-4 animate-fade-up grid-cols-2 gap-4 md:gap-10"
+                        class="md:col-span-6 grid  col-span-1 gap-y-4 animate-fade-up grid-cols-2 gap-4 md:gap-10"
                     >
                         <Link
                             :href="route('airtime')"
@@ -511,4 +511,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped>
+
+</style>
